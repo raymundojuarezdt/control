@@ -1,0 +1,75 @@
+clc
+clear all
+close all
+
+%% MODELO UNIDIMENSIONAL
+g=9.81;
+%Pendulo ideal No lineal
+l=0.25;
+m=0.1;
+b=0.01;
+b1=0.01;
+b2=0.01;
+T=0.01;
+
+%Pendulo propela No lineal
+
+%medidas en metros y kilogramos MKS
+L=0.468;
+%Masa de la propela
+Mp=0.0846;
+%Masa tornillos de la propela
+Mt=0.0054;
+%Masa de tornillos + propela
+MP=Mp+Mt;
+%Masa de la barra
+Mb=0.0944;
+
+grosor=0.0064;
+ancho1=0.013;
+ancho2=0.0165;
+ancho=(ancho2+ancho1)/2;
+R=0.012;
+r=0.012;
+
+%Rueda Inercial No lineal
+
+%medidas en metros y kilogramos MKS
+LW=0.468;
+%Masa del rombo
+M11=0.0846;
+%Masa tornillos del rombo
+M12=0.0054;
+%Masa de rombo + tornillos
+M1=M11+M12;
+%Masa de la rueda
+M2=0.0944;
+MBAR=sqrt(2)*(M1+M2)*LW/2;
+
+
+%% MODELO TRIDIMENSIONAL
+rc=L/2;
+IT=(Mb*L^2)/12+(MP*R^2)/4+MP*(L+R)^2;
+ITW=(M1+M2)*LW^2/12+(M1*LW^2)/2+(M2*r^2)/2+(M2*LW^2)/2;
+I2=(M2*r^2)/2+(M2*LW^2)/2;
+
+%Pendulo propela NO LINEAL
+ITinv=inv(IT);
+ITWinv=inv(ITW);
+I2inv=inv(I2);
+%A=[0 1;0 -b];
+Fd=50;
+FdW=50;
+Ki=0.00096196;
+Kp=0.0092955;
+Kd=0.015668;
+KiW=0.0088599;
+KpW=0.00087397;
+KdW=0.015668;
+
+%DC Motor parameters
+Ra=0.5;
+La=0.1;
+J=0.29;
+Kt=0.01;
+beta=0.01;
